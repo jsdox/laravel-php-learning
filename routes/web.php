@@ -255,7 +255,30 @@ Route::get('fibonacici', function () {
             return fibonacci($n - 1) + fibonacci($n - 2);
         }
     }
-    echo fibonacci(7);
+//    echo fibonacci(7);
+
+    function registerForEvent($name, $email) {
+        $sanizedName = filter_var($name, FILTER_SANITIZE_STRING);
+        $sanitizedEmail = filter_var($email, FILTER_SANITIZE_EMAIL);
+        return $sanizedName . ' ' . $sanitizedEmail;
+    }
+    return registerForEvent('John Doe', 'email@gmail.com');
+
+    enum DiscountType
+    {
+        case Standard;
+        case Seasonal;
+        case Weight;
+    }
+
+    function getDiscountedPrice(float $cartWeight, float $totalPrice,
+        DiscountType $discountType): float
+    {
+        $totalPrice = $totalPrice - ($totalPrice * 0.1);
+    }
+
+
+    echo getDiscountedPrice(12, 100, DiscountType::Weight);
 });
 
 Route::get('/email/verify', function () {
@@ -271,5 +294,98 @@ Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+Route::get('/binary-pattern', function () {
+    class binaryPattern {
+        // 0, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1
+        // 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14
+        public function binary($num) {
+            $j = 0; // 2 5
+            $k = 2; // 3 4
+            for ($i = 0; $i < $num; $i++) {
+               if ($i == $j) {
+                   echo 0 . ',';
+                   $j +=  $k;
+                   $k += 1;
+               } else {
+                    echo 1 . ',';
+                }
+            }
+
+        }
+    }
+    $binary = new binaryPattern();
+    return $binary->binary(3);
+});
+
+Route::get('maxprofit', function () {
+//    function maxProfit($prices) {
+//        $maxProfit = 0;
+//        $minPrice = $prices[0];
+//        for ($i = 1; $i < count($prices); $i++) {
+//            $maxProfit = max($maxProfit, $prices[$i] - $minPrice);
+//            $minPrice = min($minPrice, $prices[$i]);
+//        }
+//        return $maxProfit;
+//    }
+//    return maxProfit([2, 1, 10, 20]);
+
+    $result = [];
+    function calculateMaxProfit($prices, &$result, $count, $index = 0): array|string
+    {
+        if ($index == $count) {
+            return '';
+        }
+        for ($i = $index; $i < $count; $i++) {
+            $result[] = $prices[$i] - $prices[$index];
+        }
+        calculateMaxProfit($prices, $result, $count, $index + 1);
+        return $result;
+    }
+    $input = [7, 10, 1, 3, 6, 9, 2];
+    calculateMaxProfit($input, $result, count($input));
+    echo '<pre>';
+    print_r(max($result));
+});
+
+
+Route::get('duplicate', function () {
+    function duplicate($array)
+    {
+        $manage_array = [];
+        $duplicate = [];
+        foreach($array as $key => $value) {
+            if (in_array($value, $manage_array)) {
+                $duplicate[] = $value;
+            }
+            $manage_array[$value] = $value;
+        }
+        return $duplicate;
+    }
+    return duplicate([1, 2, 3, 6, 3, 6, 1]);
+});
+
+Route::get('productofarray', function () {
+    $result = [];
+    function duplicate($array, &$result, $index = 0)
+    {
+        if ($index == sizeof($array)) {
+            return '';
+        }
+        $num = 1;
+        $index_value = $array[$index];
+        foreach($array as $key => $value) {
+            if ($index_value != $value) {
+                $num = $num * $value;
+            }
+        }
+        $result[$index] = $num;
+        duplicate($array, $result, $index + 1);
+        return $result;
+    }
+    duplicate([10, 3, 5, 6, 2], $result);
+    echo '<pre>';
+    print_r($result);
+});
 
 
