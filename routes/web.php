@@ -446,6 +446,7 @@ Route::get('maxProductArray', function () {
 });
 
 Route::get('sumoftarget', function () {
+    //Given an array arr[] of n integers and a target value, the task is to find whether there is a pair of elements in the array whose sum is equal to target. This problem is a variation of
     function sum($arr, $target) {
         $count = count($arr);
         $find = 'false';
@@ -459,8 +460,6 @@ Route::get('sumoftarget', function () {
         }
         return $find;
     }
-
-
     $arr = [0, -1, 2, -3, 1];
     echo "<br/>Pair with given Sum (Two Sum) is = " . sum($arr, $target = -2);
 });
