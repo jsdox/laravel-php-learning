@@ -388,4 +388,81 @@ Route::get('productofarray', function () {
     print_r($result);
 });
 
+Route::get('maxsumofarray', function () {
+    function maxSubarraySum($arr) {
+        $max_sum = PHP_INT_MIN; // Initialize the maximum sum to a very small value
+        $current_sum = 0;
+        foreach ($arr as $value) {
+            echo "<br/>";
+            // Update the current sum to either the current value or the sum including the current value
+//            $current_sum = max($value, $current_sum + $value);
+            // Update the global maximum sum if the current sum is larger
+//            $max_sum = max($max_sum, $current_sum);
+
+            $current_sum = ($value > $current_sum) ? $value: $current_sum + $value;
+            echo $current_sum;
+            echo "<br/>";
+            $max_sum = ($max_sum > $current_sum) ? $max_sum: $current_sum;
+            echo $max_sum;
+            echo "<br/>";
+        }
+        return $max_sum;
+    }
+// Example usage
+    $arr = [-2, -4];
+//    $arr = [1,2,5,-4];
+    echo "<br/>Maximum Sum = " . maxSubarraySum($arr); // Output: 6
+
+  //######################################################################
+//    echo "<br/>The smallest integer is: " . PHP_INT_MIN . "<br/>";
+//    echo "The largest integer is: " . PHP_INT_MAX . "<br/>";
+//
+//    $max_sum = PHP_INT_MIN; // Initialize with the smallest possible value
+//    $current_sum = -10;
+//    $max_sum = max($max_sum, $current_sum);
+//
+//    echo "The maximum sum is: " . $max_sum . "\n";
+});
+
+
+Route::get('maxProductArray', function () {
+    function maxProductArray($arr) {
+        $max_sum = PHP_INT_MIN; // Initialize the maximum sum to a very small value
+        $current_value = 1;
+        foreach ($arr as $value) {
+            echo "<br/>";
+            $current_value = $current_value * $value;
+            if ($current_value != 0) {
+                echo 'max';
+                $max_sum = $current_value;
+            }
+            echo $current_value;
+        }
+        return $max_sum;
+    }
+
+    $arr = [-2, 6, -3, -10, 0, 2];
+    echo "<br/>Maximum product of array = " . maxProductArray($arr); // Output: 6
+});
+
+Route::get('sumoftarget', function () {
+    function sum($arr, $target) {
+        $count = count($arr);
+        $find = 'false';
+        for ($i = 0; $i < $count; $i++) {
+            $element = $arr[$i];
+            for ($j = $i + 1; $j < $count; $j++) {
+                if ($element + $arr[$j] == $target) {
+                    $find = 'true';
+                }
+            }
+        }
+        return $find;
+    }
+
+
+    $arr = [0, -1, 2, -3, 1];
+    echo "<br/>Pair with given Sum (Two Sum) is = " . sum($arr, $target = -2);
+});
+
 
