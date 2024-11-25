@@ -464,4 +464,46 @@ Route::get('sumoftarget', function () {
     echo "<br/>Pair with given Sum (Two Sum) is = " . sum($arr, $target = -2);
 });
 
+Route::get('test', function () {
+//    class Solution {
+//        function merge(&$nums1, $m, $nums2, $n) {
+//
+//            $nums1 = array_slice($nums1, 0, $m);
+//            $nums2 = array_slice($nums2, 0, $n);
+//            $nums1 = array_merge($nums1, $nums2);
+//            return sort($nums1);
+//        }
+//
+//
+//    }
+//        $m = 3;
+//        $nums1 = [1,2,3,0,0,0];
+//
+//        $nums2 = [2,5,6];
+//        $n = 3;
+//    $solution = new Solution();
+//    $s = $solution->merge($nums1, $m, $nums2, $n);
+//    print_r($nums1);
+
+
+
+    class Solution {
+        function removeElement(&$nums, $val) {
+            $n = [];
+            foreach($nums as $key => $num) {
+                if ($num != $val) {
+                    $n[] =  $num;
+                }
+            }
+            return $nums = $n;
+        }
+
+    }
+    $nums = [3,2,2,3];
+    $val = 3;
+    $solution = new Solution();
+    $solution->removeElement($nums, $val);
+    print_r($nums);
+});
+
 
